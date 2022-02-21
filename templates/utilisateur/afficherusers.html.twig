@@ -1,0 +1,69 @@
+{% extends 'base-back.html.twig' %}
+
+{% block body %}
+
+
+    <h1>Liste des Utilisateurs</h1>
+
+
+
+
+    <button class="btn btn-success btn-icon-split" ><a href="{{ path('ajouterUtilisateur')  }}"><span class="text" style="color: white">Ajouter </span></a></button>
+
+
+
+    <br><br>
+    <table class="table table-bordered" id="t"  width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th> </th>
+            <th> </th>
+            <th> id  </th>
+            <th> Nom </th>
+            <th> Prenom </th>
+            <th> Login</th>
+            <th> Date de naissance</th>
+            <th> Email</th>
+            <th> Genre</th>
+            <th> Tel</th>
+            <th> Addresse</th>
+            <th>Image user</th>
+        </tr> </thead> <tbody id="hi">
+        {% for i in tableusers %}
+            <tr>
+                <td>  <a href="{{ path('modifieruser',{'id': i.id}) }}"  class="btn btn-info btn-icon-split">
+                                            <span class="icon text-white-50">
+                        <i class="fas fa-info-circle"></i>
+
+                    </span>
+                        <span class="text">Modifier</span>
+
+                    </a></td>
+
+                <td><a href="{{ path('supprimeruser',{'id': i.id}) }}"><img src="https://img.icons8.com/color/48/000000/trash--v2.png"/></a></td>
+
+                <td>{{ i.id  }}</td>
+                <td>{{ i.nom }}</td>
+                <td>{{ i.prenom  }}</td>
+                <td>{{ i.login  }}</td>
+                <td>{{(i.datenaissance).format('d/m/Y')}}</td>
+                <td>{{ i.email }}</td>
+                <td>{{ i.genre }}</td>
+                <td>{{ i.addresse }}</td>
+                <td>{{ i.tel }}</td>
+
+                <td><img src="{{ asset('/back/images/')}}{{ i.imageuser }}" width="100"  /></td>
+
+
+
+            </tr>
+
+        {% endfor %}
+
+
+        </tbody>
+        <tbody id="search">
+        </tbody>
+
+    </table>
+{% endblock %}
