@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReservationCamp index{% endblock %}
+
+{% block body %}
+    <h1>ReservationCamp index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_reser</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation_camp in reservation_camps %}
+            <tr>
+                <td>{{ reservation_camp.id }}</td>
+                <td>{{ reservation_camp.dateReser ? reservation_camp.dateReser|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('reservation_camp_show', {'id': reservation_camp.id}) }}">show</a>
+                    <a href="{{ path('reservation_camp_edit', {'id': reservation_camp.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('reservation_camp_new') }}">Create new</a>
+{% endblock %}
