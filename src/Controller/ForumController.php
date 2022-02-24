@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Bookmark;
 use App\Entity\Topic;
 
 
@@ -62,9 +63,9 @@ class ForumController extends AbstractController
         if ($forums->isSubmitted() ) {
             $uploadedFile = $forums['image']->getData();
             if ($uploadedFile) {
-                $destination = $this->getParameter('kernel.project_dir') . '/public/upload/forum';
+                $destination = $this->getParameter('kernel.project_dir') . '\public\upload\forum';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename. '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+                $newFilename = $originalFilename. '.' . $uploadedFile->getClientOriginalExtension();
                 $uploadedFile->move(
                     $destination,
                     $newFilename);
@@ -102,7 +103,7 @@ class ForumController extends AbstractController
     /**
      * @Route("/delete/{id}", name="delete")
      */
-    public function delete(Request $request,$id)
+    public function delete($id):Response
     {
 
         $result=$this->getDoctrine()->getRepository(Topic::class)->find($id);
@@ -124,11 +125,29 @@ class ForumController extends AbstractController
 
         $forums = $this->getDoctrine()->getRepository(Topic::class)->find($id);
         $integer = intval($forums->getBookmark()) + 1;
+           $book=new Bookmark();
+
 
         $forums->setBookmark($integer);
+         $book->addTopic($forums);
         $em = $this->getDoctrine()->getManager();
-
+        $em->persist($book);
         $em->flush();
+
         return $this->redirectToRoute("forum");
+    }
+    /**
+     * @Route("/bookmark/{id}", name="bookmark")
+     */
+    public function bookmark($id): Response{
+
+        $books=new Bookmark();
+        $book=$this->getDoctrine()->getRepository(Topic::class)->find($id);
+        $book=$this->getDoctrine()->getRepository(Topic::class)->findAll();
+
+        $booked=$books->getTopic();
+
+
+        return $this->render('Front/Forum/bookmarks.html.twig',["data"=>$book]);
     }
 }

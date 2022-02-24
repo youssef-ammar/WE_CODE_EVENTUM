@@ -116,7 +116,7 @@
                             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a>
                             </li>
         -->
-                            <li class="nav-item"><a class="nav-link" href="#">Bookmarks</a>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('bookmark',{'id':1}) }}">Bookmarks</a>
                             </li>
 
                             <li class="nav-item mt-3 mt-lg-0 ml-lg-3 d-lg-none d-xl-inline-block"><a
@@ -162,7 +162,7 @@
 
                                 </div>
                                 <a href="{{ path('detailC',{'id':item.id}) }}"><img class="ml-3 rounded"
-                                                                 src=" {{ asset('upload/forum/'~ item.image) }} }}"
+                                                                 src=" {{ asset ('/upload/forum/'~   item.image) }} "
                                                                  alt="" width="100"></a>
                             </div>
                         </div>
