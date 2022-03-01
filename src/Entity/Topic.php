@@ -68,11 +68,17 @@ class Topic
      */
     private $forum;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Bookmark::class, mappedBy="Topicmark")
+     */
+    private $marks;
+
 
 
     public function __construct()
     {
         $this->comment = new ArrayCollection();
+        $this->marks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,6 +208,33 @@ class Topic
     public function setForum(?Forum $forum): self
     {
         $this->forum = $forum;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bookmark>
+     */
+    public function getMarks(): Collection
+    {
+        return $this->marks;
+    }
+
+    public function addMark(Bookmark $mark): self
+    {
+        if (!$this->marks->contains($mark)) {
+            $this->marks[] = $mark;
+            $mark->addTopicmark($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMark(Bookmark $mark): self
+    {
+        if ($this->marks->removeElement($mark)) {
+            $mark->removeTopicmark($this);
+        }
 
         return $this;
     }

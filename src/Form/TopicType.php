@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Topic;
+use App\Entity\Utilisateur;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,6 +21,13 @@ class TopicType extends AbstractType
         $builder
             ->add('title')
             ->add('description',TextareaType::class)
+            ->add('Categorie', EntityType::class, [
+                "class" => Utilisateur::class,
+                "choice_label" => "categorie",
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
             ->add('Categorie', ChoiceType::class, [
                 'choices' => [
                     ''=>'0',
