@@ -30,6 +30,48 @@
         <!-- Font Awesome CSS-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
               integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+        <script>
+            // ------------------------------------------------------- //
+            //   Inject SVG Sprite -
+            //   see more here
+            //   https://css-tricks.com/ajaxing-svg-sprite/
+            // ------------------------------------------------------ //
+            function injectSvgSprite(path) {
+                var ajax = new XMLHttpRequest();
+                ajax.open("GET", path, true);
+                ajax.send();
+                ajax.onload = function (e) {
+                    var div = document.createElement("div");
+                    div.className = 'd-none';
+                    div.innerHTML = ajax.responseText;
+                    document.body.insertBefore(div, document.body.childNodes[0]);
+                }
+            }
+            // to avoid CORS issues when viewing using file:// protocol, using the demo URL for the SVG sprite
+            // use your own URL in production, please :)
+            // https://demo.bootstrapious.com/directory/1-0/icons/orion-svg-sprite.svg
+            //- injectSvgSprite('${path}icons/orion-svg-sprite.svg');
+            injectSvgSprite('https://demo.bootstrapious.com/directory/1-4/icons/orion-svg-sprite.svg');
+        </script>
+        <!-- jQuery-->
+        <script src="{{ asset("vendor/jquery/jquery.min.js") }}"></script>
+        <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
+        <script src="{{ asset("vendor/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+        <!-- Magnific Popup - Lightbox for the gallery-->
+        <script src="{{ asset("vendor/magnific-popup/jquery.magnific-popup.min.js") }}"></script>
+        <!-- Smooth scroll-->
+        <script src="{{ asset("vendor/smooth-scroll/smooth-scroll.polyfills.min.js") }}"></script>
+        <!-- Bootstrap Select-->
+        <script src="{{ asset("vendor/bootstrap-select/js/bootstrap-select.min.js") }}"></script>
+        <!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
+        <script src="{{ asset("vendor/object-fit-images/ofi.min.js") }}"></script>
+        <!-- Swiper Carousel                       -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
+        <script>var basePath = ''</script>
+        <!-- Main Theme JS file    -->
+        <script src="{{ asset("js/theme.js") }}"></script>
+        <script src="{{ asset("js/theme.js") }}"></script>
     {% endblock %}
 </head>
 <body style="padding-top: 72px;">
@@ -60,23 +102,26 @@
                         </div>
                     </form>
                     <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="homeDropdownMenuLink" href="{{ path('home') }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Home</a>
+                            <div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="{{ path('travel') }}">Travel</a><a class="dropdown-item" href="{{ path('camping') }}">Camping</a><a class="dropdown-item" href="{{ path('event') }}">Event</a><a class="dropdown-item" href="{{ path('forum',{'lang':"en"}) }}">Forum <span class="badge badge-info-light ml-1 mt-n1">New</span></a></div>
+                        </li>
 
 
 
-                        <li class="nav-item"><a class="nav-link" href="{{ path('home') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path( 'event') }}">Events</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path('travel') }}">Travel</a></li>
+
 
                         <li class="nav-item"><a class="nav-link" href="{{ path('contact') }}">Contact</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path('forum') }}">forum</a>
-                        </li>
+
+
                         <li class="nav-item"><a class="nav-link" href="{{ path('login') }}">Sign in</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ path('register') }}">Sign up</a></li>
                         <li class="nav-item mt-3 mt-lg-0 ml-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="{{ path('addst1') }}">Add an Event</a></li>
                     </ul>
                 </div>
             </div>
+
         </nav>
     {% endblock %}
 </header>
@@ -232,47 +277,6 @@
     {% endblock %}
 </footer>
 
-<script>
-    // ------------------------------------------------------- //
-    //   Inject SVG Sprite -
-    //   see more here
-    //   https://css-tricks.com/ajaxing-svg-sprite/
-    // ------------------------------------------------------ //
-    function injectSvgSprite(path) {
-        var ajax = new XMLHttpRequest();
-        ajax.open("GET", path, true);
-        ajax.send();
-        ajax.onload = function (e) {
-            var div = document.createElement("div");
-            div.className = 'd-none';
-            div.innerHTML = ajax.responseText;
-            document.body.insertBefore(div, document.body.childNodes[0]);
-        }
-    }
-    // to avoid CORS issues when viewing using file:// protocol, using the demo URL for the SVG sprite
-    // use your own URL in production, please :)
-    // https://demo.bootstrapious.com/directory/1-0/icons/orion-svg-sprite.svg
-    //- injectSvgSprite('${path}icons/orion-svg-sprite.svg');
-    injectSvgSprite('https://demo.bootstrapious.com/directory/1-4/icons/orion-svg-sprite.svg');
-</script>
-<!-- jQuery-->
-<script src="{{ asset("vendor/jquery/jquery.min.js") }}"></script>
-<!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
-<script src="{{ asset("vendor/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
-<!-- Magnific Popup - Lightbox for the gallery-->
-<script src="{{ asset("vendor/magnific-popup/jquery.magnific-popup.min.js") }}"></script>
-<!-- Smooth scroll-->
-<script src="{{ asset("vendor/smooth-scroll/smooth-scroll.polyfills.min.js") }}"></script>
-<!-- Bootstrap Select-->
-<script src="{{ asset("vendor/bootstrap-select/js/bootstrap-select.min.js") }}"></script>
-<!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
-<script src="{{ asset("vendor/object-fit-images/ofi.min.js") }}"></script>
-<!-- Swiper Carousel                       -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
-<script>var basePath = ''</script>
-<!-- Main Theme JS file    -->
-<script src="{{ asset("js/theme.js") }}"></script>
-<script src="{{ asset("js/theme.js") }}"></script>
 
 </body>
 </html>

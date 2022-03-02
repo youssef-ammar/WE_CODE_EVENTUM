@@ -1,4 +1,3 @@
-
 {% block head %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,267 +30,204 @@
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
           crossorigin="anonymous">
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
     <title>Blog Post - Start Bootstrap Template</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="Forum/css/styles.css" rel="stylesheet" />
+    <link href="Forum/css/styles.css" rel="stylesheet"/>
 {% endblock %}
- {% block header %}
-<!-- Responsive navbar-->
-<header class="header" style="padding-top: 72px;">
-    <!-- Navbar-->
-    <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
-        <div class="container-fluid">
-            <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="{{ path('home') }}"><img class="logo"
-                            src="{{ asset('img/logo_eventum.svg') }}" alt="Directory logo"></a>
-                <form class="form-inline d-none d-sm-flex" action="#" id="search">
-                    <div class="input-label-absolute input-label-absolute-left input-reset input-expand ml-lg-2 ml-xl-3">
-                        <label class="label-absolute" for="search_search"><i class="fa fa-search"></i><span
-                                    class="sr-only">What are you looking for?</span></label>
-                        <input class="form-control form-control-sm border-0 shadow-0 bg-gray-200"
-                               id="search_search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-reset btn-sm" type="reset"><i class="fa-times fas"></i></button>
-                    </div>
-                </form>
-            </div>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                    aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-            <!-- Navbar Collapse -->
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <form class="form-inline mt-4 mb-2 d-sm-none" action="#" id="searchcollapsed">
-                    <div class="input-label-absolute input-label-absolute-left input-reset w-100">
-                        <label class="label-absolute" for="searchcollapsed_search"><i
-                                    class="fa fa-search"></i><span
-                                    class="sr-only">What are you looking for?</span></label>
-                        <input class="form-control form-control-sm border-0 shadow-0 bg-gray-200"
-                               id="searchcollapsed_search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-reset btn-sm" type="reset"><i class="fa-times fas"> </i></button>
-                    </div>
-                </form>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown ml-lg-3"><a id="userDropdownMenuLink" href="#"
-                                                             data-toggle="dropdown" aria-haspopup="true"
-                                                             aria-expanded="false"> <img
-                                    class="avatar avatar-sm avatar-border-white mr-2"
-                                    src="{{ asset('img/avatar/avatar-10.jpg') }}" alt="Jack London"></a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdownMenuLink"><a
-                                    class="dropdown-item" href="{{ path('error') }}">Profile
-                            </a><a class="dropdown-item" href="{{ path('error') }}">Dark Mode
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ path('error') }}"><i
-                                        class="fas fa-sign-out-alt mr-2 text-muted"></i> Sign out</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown"><a class="nav-link " id="homeDropdownMenuLink"
-                                                     href="index.html"
-                                                     data-toggle="dropdown" aria-haspopup="true"
-                                                     aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-translate" viewBox="0 0 16 16">
-                                <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z"/>
-                                <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z"/>
-                            </svg>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink">
-                            <a class="dropdown-item" href="index.html">English<span><svg
-                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
-  <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
-  <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
-</svg></span></a>
-                            <a class="dropdown-item" href="index-2.html">Frensh</a>
-                            <a class="dropdown-item" href="index-3.html">Add language</a>
-                            <a class="dropdown-item" href="index-4.html">See all Language
-                            </a>
 
-                        </div>
-                    </li>
-
-                    <li class="nav-item"><a class="nav-link" href="{{ path('inbox') }}">Messages</a>
-                    </li>
-
-                    <!-- Megamenu-->
-
-                    <!-- /Megamenu end
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a>
-                    </li>
--->
-                    <li class="nav-item"><a class="nav-link" href="#">Bookmarks</a>
-                    </li>
-
-                    <li class="nav-item mt-3 mt-lg-0 ml-lg-3 d-lg-none d-xl-inline-block"><a
-                                class="btn btn-primary" href="{{ path('addFSt') }}">Start New Topic</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- /Navbar -->
-</header>
- {% endblock %}
 {% block content %}
-<!-- Page content-->
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-lg-8">
-            <!-- Post content-->
-            <article>
-                <!-- Post header-->
-                <header class="mb-4">
-                    <!-- Post title-->
-                    <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
-                    <!-- Post meta content-->
-                    <div class="text-muted fst-italic mb-2">Posted on January 1, 2021 by Start Bootstrap</div>
-                    <!-- Post categories-->
-                    <a class="badge bg-secondary text-decoration-none link-light" href="{{ path('edit',{'id':id}) }}">Edit</a>
-                    <a class="badge bg-secondary text-decoration-none link-light" href="{{ path('delete',{'id':id}) }}">Delete</a>
-                </header>
-                <!-- Preview image figure-->
-                <figure class="mb-4"><img class="img-fluid rounded" src="#" alt="..." /></figure>
+    <!-- Page content-->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
                 <!-- Post content-->
+                <article>
+                    <!-- Post header-->
+                    <header class="mb-4">
+                        <!-- Post title-->
+                        <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
+                        <!-- Post meta content-->
+                        <div class="text-muted fst-italic mb-2">Posted on January 1, 2021 by Start Bootstrap</div>
+                        <!-- Post categories-->
+                        <a class="badge bg-secondary text-decoration-none link-light"
+                           href="{{ path('edit',{'id':id,'lang':lang}) }}">Edit</a>
+                        <a class="badge bg-secondary text-decoration-none link-light"
+                           href="{{ path('delete',{'id':id,'lang':lang}) }}">Delete</a>
+                    </header>
+                    <!-- Preview image figure-->
+                    <figure class="mb-4"><img class="img-fluid rounded" src="#" alt="..."/></figure>
+                    <!-- Post content-->
+                    <section class="mb-5">
+                        <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the
+                            free human mind. Because it transforms who we are, how we live, and it gives us an
+                            understanding of our place in the universe.</p>
+                        <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it
+                            are everywhere, so there's no reason to think that Earth would be unique in that regard.
+                            Whether of not the life became intelligent is a different question, and we'll see if we find
+                            that.</p>
+                        <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and
+                            carry enough energy into our system to disrupt transportation, communication, the food
+                            chains, and that can be a really bad day on Earth.</p>
+                        <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
+                        <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic
+                            thoughts every day and I realized I could hold them to myself or share them with people who
+                            might be interested.</p>
+                        <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened
+                            there because we're twirling knobs here on Earth without knowing the consequences of it.
+                            Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
+                    </section>
+                </article>
+                <!-- Comments section-->
                 <section class="mb-5">
-                    <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p>
-                    <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p>
-                    <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and carry enough energy into our system to disrupt transportation, communication, the food chains, and that can be a really bad day on Earth.</p>
-                    <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
-                    <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
-                    <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
-                </section>
-            </article>
-            <!-- Comments section-->
-            <section class="mb-5">
-                <div class="card bg-light">
-                    <div class="card-body">
-                        <!-- Comment form-->
-                        <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                        <!-- Comment with nested comments-->
-                        <div class="d-flex mb-4">
-                            <!-- Parent comment-->
-                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                            <div class="ms-3">
-                                <div class="fw-bold">Commenter Name</div>
-                                If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                <!-- Child comment 1-->
-                                <div class="d-flex mt-4">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                    </div>
-                                </div>
-                                <!--   <div class="media d-block d-sm-flex review">
-                    <div class="text-md-center mr-4 mr-xl-5"><img class="d-block avatar avatar-xl p-2 mb-2" src="img/avatar/avatar-4.jpg" alt="Jabba Hut"><span class="text-uppercase text-muted text-sm">Dec 2018</span></div>
-                    <div class="media-body">
-                        <h6 class="mt-2 mb-1">Jabba Hut</h6>
-                        <div class="mb-2"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i>
-                        </div>
-                        <p class="text-muted text-sm">Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.     </p>
-                    </div>
-                </div>
-                <div class="py-5">
-                    <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#leaveReview" aria-expanded="false" aria-controls="leaveReview">Leave a comment</button>
-                    <div class="collapse mt-4" id="leaveReview">
-                        <h5 class="mb-4"> Leave a comment </h5>
-                        <form class="form" id="contact-form" method="get" action="#">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="name">Your name *</label>
-                                        <input class="form-control" type="text" name="name" id="name" placeholder="Enter your name" required="required">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="rating">Your rating *</label>
-                                        <select class="custom-select focus-shadow-0" name="rating" id="rating">
-                                            <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5/5)</option>
-                                            <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; (4/5)</option>
-                                            <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; (3/5)</option>
-                                            <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; (2/5)</option>
-                                            <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; (1/5)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <!-- Comment form-->
 
-                            <div class="form-group">
-                                <label class="form-label" for="review">Join the discussion and leave a comment!</label>
-                                <textarea class="form-control" rows="4" name="review" id="review" placeholder="Enter your review" required="required"></textarea>
+                            {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+                            <p>{{ form_errors(form.content) }}</p>
+
+                            {{ form_widget(form.content,{"attr":{"class":"form-control"}}) }}
+
+
+                            <div class="col text-center text-sm-right">{{ form_widget(form.comment,{"attr":{"class":"btn btn-primary px-3"}}) }}</div>
+                            <!-- Comment with nested comments-->
+                            {% for item in items %}
+                            <div class="d-flex mb-4">
+                                <!-- Parent comment-->
+
+                                <div class="flex-shrink-0"><img class="rounded-circle"
+                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                                alt="..."/></div>
+                                <div class="ms-3">
+
+                                    <div class="fw-bold">Commenter Name</div>
+                                    {{ item.content }} <a class="badge bg-secondary text-decoration-none link-light"
+                                                          href="{{ path('deleteCom',{'id':id,'lang':lang}) }}">Delete</a>
+
+                                    {% endfor %}
+                                    <!-- Child comment 1-->
+
+                                    <!--   <div class="media d-block d-sm-flex review">
+                        <div class="text-md-center mr-4 mr-xl-5"><img class="d-block avatar avatar-xl p-2 mb-2" src="img/avatar/avatar-4.jpg" alt="Jabba Hut"><span class="text-uppercase text-muted text-sm">Dec 2018</span></div>
+                        <div class="media-body">
+                            <h6 class="mt-2 mb-1">Jabba Hut</h6>
+                            <div class="mb-2"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i>
                             </div>
-                            <button class="btn btn-primary" type="submit">Post review</button>
-                        </form>
+                            <p class="text-muted text-sm">Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame.     </p>
+                        </div>
                     </div>
-                </div> -->
-                                <!-- Child comment 2-->
-                                <div class="d-flex mt-4">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        When you put money directly to a problem, it makes a good headline.
+                    <div class="py-5">
+                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#leaveReview" aria-expanded="false" aria-controls="leaveReview">Leave a comment</button>
+                        <div class="collapse mt-4" id="leaveReview">
+                            <h5 class="mb-4"> Leave a comment </h5>
+                            <form class="form" id="contact-form" method="get" action="#">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="name">Your name *</label>
+                                            <input class="form-control" type="text" name="name" id="name" placeholder="Enter your name" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="rating">Your rating *</label>
+                                            <select class="custom-select focus-shadow-0" name="rating" id="rating">
+                                                <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5/5)</option>
+                                                <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; (4/5)</option>
+                                                <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; (3/5)</option>
+                                                <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734; (2/5)</option>
+                                                <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734; (1/5)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="review">Join the discussion and leave a comment!</label>
+                                    <textarea class="form-control" rows="4" name="review" id="review" placeholder="Enter your review" required="required"></textarea>
+                                </div>
+                                <button class="btn btn-primary" type="submit">Post review</button>
+                            </form>
+                        </div>
+                    </div> -->
+                                    <!-- Child comment 2-->
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0"><img class="rounded-circle"
+                                                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                                        alt="..."/></div>
+                                        <div class="ms-3">
+                                            <div class="fw-bold">Commenter Name</div>
+                                            When you put money directly to a problem, it makes a good headline.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Single comment-->
+                            <div class="d-flex">
+                                <div class="flex-shrink-0"><img class="rounded-circle"
+                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                                alt="..."/></div>
+                                <div class="ms-3">
+                                    <div class="fw-bold">Commenter Name</div>
+                                    When I look at the universe and all the ways the universe wants to kill us, I find
+                                    it hard to reconcile that with statements of beneficence.
+                                </div>
+                            </div>
                         </div>
-                        <!-- Single comment-->
-                        <div class="d-flex">
-                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                            <div class="ms-3">
-                                <div class="fw-bold">Commenter Name</div>
-                                When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                    </div>
+                </section>
+            </div>
+            <!-- Side widgets-->
+            <div class="col-lg-4">
+                <!-- Search widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Search</div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Enter search term..."
+                                   aria-label="Enter search term..." aria-describedby="button-search"/>
+                            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Categories widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Categories</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#!">Web Design</a></li>
+                                    <li><a href="#!">HTML</a></li>
+                                    <li><a href="#!">Freebies</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#!">JavaScript</a></li>
+                                    <li><a href="#!">CSS</a></li>
+                                    <li><a href="#!">Tutorials</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
-        <!-- Side widgets-->
-        <div class="col-lg-4">
-            <!-- Search widget-->
-            <div class="card mb-4">
-                <div class="card-header">Search</div>
-                <div class="card-body">
-                    <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                        <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                <!-- Side widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Side Widget</div>
+                    <div class="card-body">You can put anything you want inside of these side widgets. They are easy to
+                        use, and feature the Bootstrap 5 card component!
                     </div>
                 </div>
-            </div>
-            <!-- Categories widget-->
-            <div class="card mb-4">
-                <div class="card-header">Categories</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="#!">Web Design</a></li>
-                                <li><a href="#!">HTML</a></li>
-                                <li><a href="#!">Freebies</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled mb-0">
-                                <li><a href="#!">JavaScript</a></li>
-                                <li><a href="#!">CSS</a></li>
-                                <li><a href="#!">Tutorials</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Side widget-->
-            <div class="card mb-4">
-                <div class="card-header">Side Widget</div>
-                <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 <!-- Footer-->
@@ -381,10 +317,10 @@
         </div>
     </footer>
 
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="{{ asset('Topic/js/scripts.js') }}"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{{ asset('Topic/js/scripts.js') }}"></script>
     <script>
         // ------------------------------------------------------- //
         //   Inject SVG Sprite -

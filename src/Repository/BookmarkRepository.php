@@ -18,11 +18,37 @@ class BookmarkRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Bookmark::class);
     }
+    public function findByUser($user)
+    {
+        return $this->createQueryBuilder('b')
+            ->join('b.Topicmark','s')
+            ->addSelect('s')
+            ->where('b.userBook=:user')
+            ->setParameter('user',$user)
+            ->select('t')->from('App:Topic','t')
+
+            ->getQuery()->getResult();
+    }
+    public function findBook($user,$id)
+    {
+        return $this->createQueryBuilder('b')
+            ->join('b.Topicmark','t')
+            ->addSelect('b')
+            ->Where('t.id=:id')
+            ->setParameter('id',$id)
+            ->andwhere('b.userBook=:user')
+            ->setParameter('user',$user)
+
+            /*->select('s')->from('App:Bookmark','s')*/
+            ->getQuery()->getResult()
+            ;
+    }
 
     // /**
     //  * @return Bookmark[] Returns an array of Bookmark objects
     //  */
     /*
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('b')
