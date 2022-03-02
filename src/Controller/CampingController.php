@@ -50,6 +50,7 @@ class CampingController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/partenaire", name="camping_index_part", methods={"GET"})
      */

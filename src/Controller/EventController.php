@@ -4,17 +4,21 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Entity\Event;
+use App\Entity\Images;
 use App\Entity\Produit;
 use App\Form\EventType;
 use App\Form\ProduitType;
 use App\Repository\EventRepository;
+use phpDocumentor\Reflection\DocBlock\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Gedmo\Sluggable\Util\Urlizer;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/event")
@@ -39,7 +43,9 @@ class EventController extends AbstractController
      * @Route("/home", name="event_home", methods={"GET"})
      */
     public function index2(Request $request,PaginatorInterface $paginator): Response
-    { $donnees = $this->getDoctrine()->getRepository(Event::class)->findAll();
+    {
+        //klwxcjdddddddddddddddddddddddddddddddddddddddddddddd
+        $donnees = $this->getDoctrine()->getRepository(Event::class)->findAll();
         $events = $paginator->paginate(
             $donnees,
             $request->query->getInt('page',1),
@@ -53,7 +59,9 @@ class EventController extends AbstractController
      * @Route("/partenaire", name="profile", methods={"GET"})
      */
     public function index3(Request $request,PaginatorInterface $paginator): Response
-    { $donnees = $this->getDoctrine()->getRepository(Event::class)->findAll();
+    {
+        //kllknddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        $donnees = $this->getDoctrine()->getRepository(Event::class)->findAll();
         $events = $paginator->paginate(
             $donnees,
             $request->query->getInt('page',1),
@@ -74,17 +82,23 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedFile = $form['image']->getData();
-            if ($uploadedFile) {
-                $destination = $this->getParameter('kernel.project_dir') . '/public/upload';
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename. '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move(
-                    $destination,
-                    $newFilename);
-                $event->setImage($newFilename);
+            $images = $form->get('images')->getData();
 
+            // On boucle sur les images
+            foreach($images as $image){
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                $img = new Images();
+                $img->setNom($fichier);
+                $event->addImage($img);
             }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
@@ -107,17 +121,23 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedFile = $form['image']->getData();
-            if ($uploadedFile) {
-                $destination = $this->getParameter('kernel.project_dir') . '/public/upload';
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename. '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move(
-                    $destination,
-                    $newFilename);
-                $event->setImage($newFilename);
+            $images = $form->get('images')->getData();
 
+            // On boucle sur les images
+            foreach($images as $image){
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                $img = new Images();
+                $img->setNom($fichier);
+                $event->addImage($img);
             }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
@@ -132,41 +152,47 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit/", name="event_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit/", name="annonces_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Event $event): Response
     {
-        $form = $this->createForm(EventType::class, $event);// creation formulaire
-        $form->handleRequest($request);
-        $oldFileName = $event->getImage();
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $uploadedFile */
-            $uploadedFile = $form['image']->getData();
 
-            if ($uploadedFile) {
-                $destination = $this->getParameter('kernel.project_dir') . '/public/upload';
-                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename =$originalFilename. '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move(
-                    $destination,
-                    $newFilename
-                );
-                $event->setImage($newFilename);
+
+            $form = $this->createForm(EventType::class, $event);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // On récupère les images transmises
+                $images = $form->get('images')->getData();
+
+                // On boucle sur les images
+                foreach ($images as $image) {
+                    // On génère un nouveau nom de fichier
+                    $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                    // On copie le fichier dans le dossier uploads
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $fichier
+                    );
+
+                    // On stocke l'image dans la base de données (son nom)
+                    $img = new Images();
+                    $img->setNom($fichier);
+                    $event->addImage($img);
+                }
+
+                $this->getDoctrine()->getManager()->flush();
+
+                return $this->redirectToRoute('event_index');
             }
-            else{
-                $event->setImage($oldFileName);
-            }
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($event);
-            $entityManager->flush();
-            return $this->redirectToRoute('event_index', [], Response::HTTP_SEE_OTHER);
+
+            return $this->render('event/edit.html.twig', [
+                'events' => $event,
+                'form' => $form->createView(),
+            ]);
         }
 
-        return $this->render('event/edit.html.twig', [
-            'events' => $event,
-            'form' => $form->createView(),
-        ]);
-    }
     /**
      * @Route("/{id}/edit/part", name="part_edit", methods={"GET","POST"})
      */
@@ -194,6 +220,7 @@ class EventController extends AbstractController
      */
     public function show(Event $event): Response
     {
+
         return $this->render('event/show.html.twig', [
             'event' => $event,
         ]);
@@ -215,7 +242,7 @@ class EventController extends AbstractController
     {
 
         $result=$this->getDoctrine()->getRepository(Event::class)->find($id);
-
+//$result->removeImage($result->getImages());
         $entityManager=$this->getDoctrine()->getManager();
         $entityManager->remove($result);
         $entityManager->flush();
@@ -242,4 +269,27 @@ class EventController extends AbstractController
 
 
     }
+
+    /**
+     * @Route("/supprime/image/{id}", name="annonces_delete_image" )
+     */
+    public function deleteImage(Images $image, Request $request){
+        $data = json_decode($request->getContent(), true);
+
+        // On vérifie si le token est valide
+
+            // On récupère le nom de l'image
+            $nom = $image->getNom();
+            // On supprime le fichier
+            unlink($this->getParameter('images_directory').'/'.$nom);
+
+            // On supprime l'entrée de la base
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($image);
+            $em->flush();
+
+            // On répond en json
+        return new JsonResponse(['success'=>1]);
+    }
+
 }

@@ -28,7 +28,8 @@
                 {% for event in events %}
                 <!-- blog item-->
                 <div class="col-lg-3   hover-animate">
-                    <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="{{ asset( 'upload/'~event.image)}}" alt="..."/></a>
+
+                    <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="" alt="..."/></a>
                         <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">{{ event.nom }} </a>
                             <h5 class="my-2"><a class="text-dark" href="post.html">{{ event.lieu }}         </a></h5>
                             <p class="text-gray-500 text-sm my-3"><i class="far fa-clock mr-2"></i>{{ event.dateFin ? event.dateFin|date('Y-m-d') : '' }}</p>

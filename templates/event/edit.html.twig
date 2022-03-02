@@ -9,6 +9,7 @@
                     <div class="card-body">
 
                         <h4 style="color:#FFA500"  class="card-title">Modifier évènement</h4>
+                        {{ include('event/_form.html.twig', {'button_label': 'Update'}) }}
 
                         {{form_start(form ,{'attr':{'class':'form-horizontal'}})}}
                         {{form_widget(form)}}

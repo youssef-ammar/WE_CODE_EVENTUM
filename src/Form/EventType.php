@@ -21,10 +21,12 @@ class EventType extends AbstractType
             ->add('lieu')
 
             ->add('prix')
-            ->add('image', FileType::class, [
-                'mapped' => false,
-                 'required' => false,
 
+            ->add('images',FileType::class,[
+                'label'=>false,
+                'multiple'=>true,
+                'mapped'=>false,
+                'required'=>false
             ])
             ->add('categorie')
             ->add('description', TextareaType::class)

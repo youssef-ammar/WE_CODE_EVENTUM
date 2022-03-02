@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -15,18 +18,21 @@ class Event
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Veuillez renseigner ce champs")
+     * @Groups("Event")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      * @Assert\NotBlank(message="Veuillez renseigner ce champs")
+     * @Groups("Event")
 
 
      */
@@ -38,12 +44,14 @@ class Event
 
 
      *  @Assert\NotBlank(message="Veuillez renseigner ce champs")
+     * @Groups("Event")
      */
     private $date_fin;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(message="Veuillez renseigner ce champs")
+     * @Groups("Event")
      */
     private $lieu;
 
@@ -57,6 +65,7 @@ class Event
      *      maxMessage = "la description ne peut pas dépasser {{ limit }} caractères"
      * )
      * @Assert\NotBlank(message="Veuillez renseigner ce champs")
+     * @Groups("Event")
      */
 
     private $description;
@@ -65,24 +74,29 @@ class Event
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Positive(message ="prix doit etre positive")
      * @Assert\NotBlank(message="Veuillez renseigner ce champs")
+     * @Groups("Event")
      */
 
     private $prix;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-
-     * @Assert\File(mimeTypes={ "image/jpeg" , "image/png"})
-     */
-   
-    private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="event")
-     * @ORM\JoinColumn(nullable=false)
-
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="event",cascade={"persist"})
+     * @Groups("Event")
      */
     private $categorie;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="event" ,cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @Groups("Event")
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -161,17 +175,7 @@ class Event
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
 
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     public function getCategorie(): ?Categorie
     {
@@ -181,6 +185,36 @@ class Event
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getEvent() === $this) {
+                $image->setEvent(null);
+            }
+        }
 
         return $this;
     }

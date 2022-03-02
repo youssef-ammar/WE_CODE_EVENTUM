@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
@@ -17,22 +18,27 @@ class Categorie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *  @Groups("Event")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(message="Veuillez renseigner ce champs")
+     * @Groups("Event")
      */
     private $nom;
 
     /**
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="categorie", orphanRemoval=true)
+
      */
     private $event;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *  @Groups("Event")
+     *
      */
     private $image;
 

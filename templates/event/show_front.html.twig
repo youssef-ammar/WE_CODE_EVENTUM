@@ -16,6 +16,28 @@
         </div>
     </div>
 </section>
+    <section class="py-6 bg-gray-100">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-8">
+
+                    <h2>Images</h2>
+                </div>
+
+            </div>
+            {% for image in event.images %}
+                <div class="row">
+                    <div class="d-flex align-items-lg-stretch mb-4 col-lg-8">
+                        <div class="card shadow-lg border-0 w-100 border-0 hover-animate" style="background: center center url({{ asset('/upload/' ~ image.nom) }}) no-repeat; background-size: cover;">
+                            <div class="d-flex align-items-center h-100 text-white justify-content-center py-6 py-lg-7">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 <section class="py-6">
     <div class="container">
         <div class="row">
@@ -25,20 +47,10 @@
                     <h3 class="mb-3">Description</h3>
                     <p class="text-muted">{{ event.description }}</p>
                  </div>
-                <div class="text-block">
-                    <!-- Listing Location-->
-                    <h3 class="mb-4">Image</h3>
-                    <div class="map-wrapper-300 mb-3">
-                        <div class="h-100" id="detailMap">
 
-                            <img style=" display: block;
-                      margin-left: auto;
-                      margin-right: auto;
-                      width: 50%;"  src="{{ asset( 'upload/'~event.image)}}"  />
 
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </div>
 
 
 
