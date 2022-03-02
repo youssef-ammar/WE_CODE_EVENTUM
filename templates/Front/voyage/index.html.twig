@@ -1,0 +1,56 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Voyage {% endblock %}
+
+{% block body %}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 style="color:#FFA500"  class="card-title">liste voyages</h4>
+
+                    <table class="table">
+        <thead>
+            <tr>
+
+
+                <th>Destination du voyage</th>
+                <th>Nombre places maximum</th>
+                <th>Image</th>
+
+                <th>Actions</th>
+            </tr>
+        </thead>
+                        {% for voyage in voyages %}
+        <tbody>
+
+            <tr>
+                <td>{{ voyage.destinationVoy }}</td>
+                <td>{{ voyage.nbrePlaceVoy }}</td>
+               <td><img src="{{asset('upload/'~voyage.imageVoy)  }}"></td>
+
+                <td>
+                    <a href="{{ path('voyageShow', {'id': voyage.id}) }}">Voir en détails</a>
+                    <a href="{{ path('voyageEdit', {'id': voyage.id}) }}">Modifier</a>
+                    <a href="{{ path('voyageDelete', {'id': voyage.id}) }}">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Pas de voyage trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('voyageNew') }}">Ajouter Voyage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

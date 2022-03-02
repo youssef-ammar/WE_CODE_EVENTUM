@@ -1,0 +1,21 @@
+{% extends 'baseBack.html.twig' %}
+{% block title %}Ajouter Voyage{% endblock %}
+
+{% block body %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 style="color:#FFA500"  class="card-title">Ajouter Voyage</h4>
+
+    {{ include('Front/voyage/_form.html.twig') }}
+
+
+    <a href="{{ path('voyage') }}">Retour à la liste</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
