@@ -75,6 +75,8 @@
      <!-- Main Theme JS file    -->
      <script src="{{ asset('js/theme.js') }}"></script>
      <script src="{{ asset('Topic/Home/js/scripts.js') }}"></script>
+
+
     {% endblock %}
 
 
@@ -89,7 +91,7 @@
                 <ol class="breadcrumb pl-0  justify-content-start">
                     <li class="breadcrumb-item"><a href="{{ path('home') }}">{{ 'Home'|trans }}</a></li>
 
-                    <li class="breadcrumb-item active">{{ 'Forum'|trans }}m</li>
+                    <li class="breadcrumb-item active">{{ 'Forum'|trans }}</li>
                 </ol>
 
 
@@ -280,8 +282,6 @@
             </div>
             #}
         </section>
-
-
 
 
     {% endblock %}

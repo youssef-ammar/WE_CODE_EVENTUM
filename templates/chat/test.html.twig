@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="assets/main.css">
+</head>
+<body>
+
+
+<div class="bot">
+    <h2>{{ title }}</h2>
+
+    <div class="bot__messages">
+        <div class="bot__messages__empty"></div>
+
+        <div class="bot__messages_list">
+            <div class="message-item message-item--received">
+                <div class="message">
+                    <span class="message__label">{{ name }}</span>
+                    <span class="message__text">Hello!</span>
+                </div>
+            </div>
+
+            <div class="message-item message-item--sent">
+                <div class="message">
+                    {% for message in messages %}
+                        <span class="message__tmessagesext">{{message.message}}</span>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form class="bot__form" id="form" method="POST">
+        <input class="bot__form__input" type="text" name="message">
+        <button class="bot__form__button" type="button" onclick="send()">Send</button>
+    </form>
+
+
+</div>
+
+</body>
+</html>
+
+<script>
+    function send(){
+        $.ajax({
+            url:"",
+            type: 'GET',
+            data: {message:"olaa"},
+            success: function(result) {
+                alert("send")
+
+            }
+        });
+    }
+</script>

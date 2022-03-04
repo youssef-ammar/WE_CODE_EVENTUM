@@ -16,6 +16,13 @@ class LinkController extends AbstractController
         return $this->render('Front/home_v.html.twig');
     }
     /**
+     * @Route("/test", name="test")
+     */
+    public function test(): Response
+    {
+        return $this->render('base.html.twig');
+    }
+    /**
      * @Route("/travel", name="travel")
      */
     public function travel(): Response

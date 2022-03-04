@@ -157,7 +157,7 @@ class ForumController extends AbstractController
             return $this->redirectToRoute("forum", array("lang" => $lang));
         }
 
-        return $this->render('Front/Forum/addForumSt1.html.twig', array('form' => $form->createView(),'data'=> $forums, "lang" => $lang));
+        return $this->render('Front/Forum/edit_Topic.twig', array('form' => $form->createView(),'data'=> $forums, "lang" => $lang));
     }
 
     /**

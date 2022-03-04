@@ -1,3 +1,4 @@
+{% extends "Front/Forum/base.html.twig" %}
 {% block head %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,12 +37,61 @@
     <meta name="author" content=""/>
     <title>Blog Post - Start Bootstrap Template</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}"/>
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="Forum/css/styles.css" rel="stylesheet"/>
+    <link href="{{ asset('Forum/css/styles.css') }}" rel="stylesheet"/>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{{ asset('Topic/js/scripts.js') }}"></script>
+    <script>
+        // ------------------------------------------------------- //
+        //   Inject SVG Sprite -
+        //   see more here
+        //   https://css-tricks.com/ajaxing-svg-sprite/
+        // ------------------------------------------------------ //
+        function injectSvgSprite(path) {
+
+            var ajax = new XMLHttpRequest();
+            ajax.open("GET", path, true);
+            ajax.send();
+            ajax.onload = function (e) {
+                var div = document.createElement("div");
+                div.className = 'd-none';
+                div.innerHTML = ajax.responseText;
+                document.body.insertBefore(div, document.body.childNodes[0]);
+            }
+        }
+
+        // to avoid CORS issues when viewing using file:// protocol, using the demo URL for the SVG sprite
+        // use your own URL in production, please :)
+        // https://demo.bootstrapious.com/directory/1-0/icons/orion-svg-sprite.svg
+        //- injectSvgSprite('${path}icons/orion-svg-sprite.svg');
+        injectSvgSprite('https://demo.bootstrapious.com/directory/1-4/icons/orion-svg-sprite.svg');
+
+    </script>
+    <!-- jQuery-->
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Magnific Popup - Lightbox for the gallery-->
+    <script src="{{ asset('vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+    <!-- Smooth scroll-->
+    <script src="{{ asset('vendor/smooth-scroll/smooth-scroll.polyfills.min.js') }}"></script>
+    <!-- Bootstrap Select-->
+    <script src="{{ asset('vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+    <!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
+    <script src="{{ asset('vendor/object-fit-images/ofi.min.js') }}"></script>
+    <!-- Swiper Carousel                       -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
+    <script>var basePath = ''</script>
+    <!-- Main Theme JS file    -->
+    <script src="{{ asset('js/theme.js') }}"></script>
+    <script src="{{ asset('Topic/Home/js/scripts.js') }}"></script>
 {% endblock %}
 
 {% block content %}
+    {{ parent() }}
     <!-- Page content-->
     <div class="container mt-5">
         <div class="row">
@@ -108,7 +158,7 @@
 
                                     <div class="fw-bold">Commenter Name</div>
                                     {{ item.content }} <a class="badge bg-secondary text-decoration-none link-light"
-                                                          href="{{ path('deleteCom',{'id':id,'lang':lang}) }}">Delete</a>
+                                                          href="{{ path('delete',{'id':id,'lang':lang}) }}">Delete</a>
 
                                     {% endfor %}
                                     <!-- Child comment 1-->
@@ -229,141 +279,3 @@
         </div>
     </div>
 {% endblock %}
-
-<!-- Footer-->
-
-{% block footer %}
-    <footer class="position-relative z-index-10 d-print-none">
-        <!-- Main block - menus, subscribe form-->
-        <div class="py-6 bg-gray-200 text-muted">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <div class="font-weight-bold text-uppercase text-dark mb-3">Directory</div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-                        <ul class="list-inline">
-                            <li class="list-inline-item"><a class="text-muted text-hover-primary" href="#"
-                                                            target="_blank" title="twitter"><i
-                                            class="fab fa-twitter"></i></a></li>
-                            <li class="list-inline-item"><a class="text-muted text-hover-primary" href="#"
-                                                            target="_blank" title="facebook"><i
-                                            class="fab fa-facebook"></i></a></li>
-                            <li class="list-inline-item"><a class="text-muted text-hover-primary" href="#"
-                                                            target="_blank" title="instagram"><i
-                                            class="fab fa-instagram"></i></a></li>
-                            <li class="list-inline-item"><a class="text-muted text-hover-primary" href="#"
-                                                            target="_blank" title="pinterest"><i
-                                            class="fab fa-pinterest"></i></a></li>
-                            <li class="list-inline-item"><a class="text-muted text-hover-primary" href="#"
-                                                            target="_blank" title="vimeo"><i
-                                            class="fab fa-vimeo"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
-                        <h6 class="text-uppercase text-dark mb-3">Rentals</h6>
-                        <ul class="list-unstyled">
-                            <li><a class="text-muted" href="index.html">Rooms </a></li>
-                            <li><a class="text-muted" href="category-rooms.html">Map on top </a></li>
-                            <li><a class="text-muted" href="category-2-rooms.html">Side map </a></li>
-                            <li><a class="text-muted" href="category-3-rooms.html">No map </a></li>
-                            <li><a class="text-muted" href="detail-rooms.html">Room detail </a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
-                        <h6 class="text-uppercase text-dark mb-3">Pages</h6>
-                        <ul class="list-unstyled">
-                            <li><a class="text-muted" href="compare.html">Comparison </a></li>
-                            <li><a class="text-muted" href="team.html">Team </a></li>
-                            <li><a class="text-muted" href="contact.html">Contact </a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-4">
-                        <h6 class="text-uppercase text-dark mb-3">Daily Offers & Discounts</h6>
-                        <p class="mb-3"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque
-                            temporibus.</p>
-                        <form action="#" id="newsletter-form">
-                            <div class="input-group mb-3">
-                                <input class="form-control bg-transparent border-dark border-right-0" type="email"
-                                       placeholder="Your Email Address" aria-label="Your Email Address">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-dark border-left-0" type="submit"><i
-                                                class="fa fa-paper-plane text-lg"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Copyright section of the footer-->
-        <div class="py-4 font-weight-light bg-gray-800 text-gray-300">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-left">
-                        <p class="text-sm mb-md-0">&copy; 2020, Your company. All rights reserved.</p>
-                    </div>
-                    <div class="col-md-6">
-                        <ul class="list-inline mb-0 mt-2 mt-md-0 text-center text-md-right">
-                            <li class="list-inline-item"><img class="w-2rem" src="img/visa.svg" alt="..."></li>
-                            <li class="list-inline-item"><img class="w-2rem" src="img/mastercard.svg" alt="...">
-                            </li>
-                            <li class="list-inline-item"><img class="w-2rem" src="img/paypal.svg" alt="..."></li>
-                            <li class="list-inline-item"><img class="w-2rem" src="img/western-union.svg" alt="...">
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="{{ asset('Topic/js/scripts.js') }}"></script>
-    <script>
-        // ------------------------------------------------------- //
-        //   Inject SVG Sprite -
-        //   see more here
-        //   https://css-tricks.com/ajaxing-svg-sprite/
-        // ------------------------------------------------------ //
-        function injectSvgSprite(path) {
-
-            var ajax = new XMLHttpRequest();
-            ajax.open("GET", path, true);
-            ajax.send();
-            ajax.onload = function (e) {
-                var div = document.createElement("div");
-                div.className = 'd-none';
-                div.innerHTML = ajax.responseText;
-                document.body.insertBefore(div, document.body.childNodes[0]);
-            }
-        }
-
-        // to avoid CORS issues when viewing using file:// protocol, using the demo URL for the SVG sprite
-        // use your own URL in production, please :)
-        // https://demo.bootstrapious.com/directory/1-0/icons/orion-svg-sprite.svg
-        //- injectSvgSprite('${path}icons/orion-svg-sprite.svg');
-        injectSvgSprite('https://demo.bootstrapious.com/directory/1-4/icons/orion-svg-sprite.svg');
-
-    </script>
-    <!-- jQuery-->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- Magnific Popup - Lightbox for the gallery-->
-    <script src="{{ asset('vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-    <!-- Smooth scroll-->
-    <script src="{{ asset('vendor/smooth-scroll/smooth-scroll.polyfills.min.js') }}"></script>
-    <!-- Bootstrap Select-->
-    <script src="{{ asset('vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
-    <!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
-    <script src="{{ asset('vendor/object-fit-images/ofi.min.js') }}"></script>
-    <!-- Swiper Carousel                       -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
-    <script>var basePath = ''</script>
-    <!-- Main Theme JS file    -->
-    <script src="{{ asset('js/theme.js') }}"></script>
-    <script src="{{ asset('Topic/Home/js/scripts.js') }}"></script>
-{% endblock %}
-
