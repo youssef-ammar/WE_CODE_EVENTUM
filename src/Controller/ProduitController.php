@@ -38,7 +38,8 @@ class ProduitController extends AbstractController
     }
 
     /**
-     * @Route("/ajoutproduit",name="ajoutproduit")
+     * @Route("/ajoutproduit",name="ajoutproduit"210)
+     *
      */
     public function ajouterProduit(EntityManagerInterface $em,Request $request ,ProduitRepository $UserRepository){
         $produit= new Produit();
