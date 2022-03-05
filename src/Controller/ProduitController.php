@@ -9,6 +9,7 @@ use App\Form\ProduitType;
 use App\Repository\CommandeRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -23,8 +24,14 @@ class ProduitController extends AbstractController
     /**
      * @Route("/afficherproduit",name="afficherproduit")
      */
-    public function Affiche(ProduitRepository $repository){
-        $tableprduits=$repository->findAll();
+    public function Affiche(Request $request,ProduitRepository $repository,PaginatorInterface $paginator){
+        $tableprduits=$repository->listproduitparprix();
+        $tableprduits = $paginator->paginate(
+            $tableprduits,
+            $request->query->getInt('page', 1),
+            3
+        );
+
         return $this->render('produit/afficherProduits.html.twig'
             ,['tableproduits'=>$tableprduits]);
 
@@ -122,7 +129,7 @@ class ProduitController extends AbstractController
      */
     public function AfficheProduitClients(EntityManagerInterface $entityManager,Request $request,ProduitRepository $repository,CommandeRepository $commandeRepo){
 
-        $tableproduits=$repository->findAll();
+        $tableproduits=$repository->listproduitparprix();
         return $this->render('produit/afficherproduitclient.html.twig'
             ,['tableproduits'=>$tableproduits]);
 
@@ -160,7 +167,34 @@ class ProduitController extends AbstractController
 
     }
 
+    /**
+     * @Route("/stat", name="stat")
+     */
+    public function statAction(ProduitRepository $repo)
+    {
+        $produits= $repo->findAll();
+        $produit= [];
+        $produitcommande= [];
 
+
+
+
+        foreach($produits as $produit ){
+            $produitnom[]=$produit->getNom();
+            $produitcommande[]= count($produit->getCommande());
+        }
+
+        return $this->render('produit/dashbord.html.twig',
+            [
+                'produitnom' => json_encode($produitnom),
+                'commande' => json_encode($produitcommande), 'base2' => 'base2',
+
+
+
+            ]);
+
+
+    }
 
 
 }
