@@ -12,24 +12,24 @@
 
 
 
+                        {{ form(form2) }}
+                        {% for i in produit %}
 
-                        {% for i in tableproduits %}
 
+                            <div class="swiper-slide h-auto px-2">
+                                <a  href="{{ path('ajoutercommandeuser',{id: i.id}) }}">Acheter</a>
+                                <div class="card card-poster gradient-overlay hover-animate mb-4 mb-lg-0"><a class="tile-link" href="#"></a><img class="bg-image" src="{{ asset('/back/images/')}}{{ i.image }}" alt="Card image">
+                                    <div class="card-body overlay-content">
 
-            <div class="swiper-slide h-auto px-2">
-                <a  href="{{ path('ajoutercommandeuser',{id: i.id}) }}">Acheter</a>
-                <div class="card card-poster gradient-overlay hover-animate mb-4 mb-lg-0"><a class="tile-link" href="#"></a><img class="bg-image" src="{{ asset('/back/images/')}}{{ i.image }}" alt="Card image">
-                    <div class="card-body overlay-content">
+                                        <h1 class="card-title text-shadow text-uppercase">{{ i.nom }}</h1>
+                                        <p class="card-text text-sm"> {{ i.desciption }}</p>
 
-                        <h1 class="card-title text-shadow text-uppercase">{{ i.nom }}</h1>
-                        <p class="card-text text-sm"> {{ i.desciption }}</p>
+                                        <div><h4>{{ i.prix }} dt</h4></div>
+                                    </div>
 
-                        <div><h4>{{ i.prix }} dt</h4></div>
-                    </div>
+                                </div>
 
-                </div>
-
-            </div>
+                            </div>
 
                         {% endfor %}
 
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-        </section>
+    </section>
 
 
 

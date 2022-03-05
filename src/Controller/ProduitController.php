@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Commande;
 use App\Entity\Produit;
 use App\Form\ProduitType;
+use App\Form\RechType;
 use App\Repository\CommandeRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,10 +39,9 @@ class ProduitController extends AbstractController
     }
 
     /**
-     * @Route("/ajoutproduit",name="ajoutproduit"210)
-     *
+     * @Route("/ajoutproduit",name="ajoutproduit")
      */
-    public function ajouterProduit(EntityManagerInterface $em,Request $request ,ProduitRepository $UserRepository){
+    public function ajouterProduit(EntityManagerInterface $em,Request $request ,ProduitRepository $UserRepository,\Swift_Mailer $mailer){
         $produit= new Produit();
         $form= $this->createForm(ProduitType::class,$produit);
         $form->add('Ajouter',SubmitType::class);
@@ -64,6 +64,21 @@ class ProduitController extends AbstractController
             }
             $em->persist($produit);
             $em->flush();
+            $message = (new \Swift_Message("Vous avez ajouté un nouveau Produit   "/*.$msg*/))
+
+                ->setFrom('eventum20@gmail.com')
+                ->setTo('zouhour.rezgui@esprit.tn')
+                //message avec vue twig
+                ->setBody(
+                    $this->renderView(
+                        'email/contact.html.twig'
+                    ),
+                    'text/html'
+                ) ;
+
+            $mailer->send($message);
+
+
 
 
             return $this->redirectToRoute("afficherproduit");
@@ -125,16 +140,7 @@ class ProduitController extends AbstractController
 
 
 
-    /**
-     * @Route("/afficherproduitClient",name="afficherproduitClient")
-     */
-    public function AfficheProduitClients(EntityManagerInterface $entityManager,Request $request,ProduitRepository $repository,CommandeRepository $commandeRepo){
 
-        $tableproduits=$repository->listproduitparprix();
-        return $this->render('produit/afficherproduitclient.html.twig'
-            ,['tableproduits'=>$tableproduits]);
-
-    }
     /**
      * @Route("/produit/{id}",name="get_produit_info")
      */
@@ -196,6 +202,78 @@ class ProduitController extends AbstractController
 
 
     }
+
+
+    /**
+     * @Route("/afficherproduitClient",name="afficherproduitClient")
+     */
+    public function AfficheProduitClients(EntityManagerInterface $entityManager,Request $request,ProduitRepository $repository,CommandeRepository $commandeRepo){
+
+        $tableproduits=$repository->findAll();
+        $form = $this->createForm(RechType::class);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $nomproduit=$form->getData()->getNom();
+            $produitResult=$this->getDoctrine()->getRepository(Produit::class)->getProdtuiPrix($nomproduit);
+
+            return $this->render('produit/afficherproduitclient.html.twig', [
+                'tableproduits'=>$tableproduits,
+                'produit' => $produitResult,
+                'form2' => $form->createView(),
+
+
+
+            ]);
+        }
+
+
+
+        return $this->render('produit/afficherproduitclient.html.twig'
+            ,['produit'=>$tableproduits,
+
+                'form2' => $form->createView(),
+
+            ]);
+
+    }
+
+
+
+
+    /*
+    public function testthisplz(
+        Request $request,
+        ProduitRepository $coursRepo,
+        EntityManagerInterface $entityManager)
+    {
+
+        $produit =$this->getDoctrine()->getRepository(Produit::class)->findAll();
+
+        $form = $this->createForm(RechType::class);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $nomproduit=$form->getData()->getNom();
+            $produitResult=$this->getDoctrine()->getRepository(Produit::class)->getCoursByNom($nomproduit);
+
+            return $this->render('produit/show.html.twig', [
+                'produit' => $produitResult,
+                'form2' => $form->createView(),
+
+
+
+            ]);
+        }
+        return $this->render('cours/show.html.twig', [
+            'courss' => $produit,
+            'form2' => $form->createView(),
+
+        ]);
+    }
+*/
+
+
 
 
 }
