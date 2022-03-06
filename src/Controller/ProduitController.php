@@ -78,6 +78,8 @@ class ProduitController extends AbstractController
 
             $mailer->send($message);
 
+            $mailer->send($message);
+
 
 
 
