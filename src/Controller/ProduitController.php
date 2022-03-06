@@ -30,7 +30,7 @@ class ProduitController extends AbstractController
         $tableprduits = $paginator->paginate(
             $tableprduits,
             $request->query->getInt('page', 1),
-            4
+            3
         );
 
         return $this->render('produit/afficherProduits.html.twig'
