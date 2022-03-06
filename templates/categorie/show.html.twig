@@ -1,0 +1,40 @@
+{% extends 'base-back.html.twig' %}
+
+ {% block css %}
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ {% endblock %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+            <h4 style="color:#FFA500"  class="card-title">Categorie</h4>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ categorie.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nom</th>
+                            <td>{{ categorie.nom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ categorie.description }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                    <a href="{{ path('categorie_index') }}" type="button" class="btn btn-warning btn-fw">Liste categorire</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

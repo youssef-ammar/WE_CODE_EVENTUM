@@ -1,0 +1,29 @@
+
+{% block body %}
+   <h1 align="reservation" >liste des reservations</h1><hr<
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>DateRes</th>
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for reservation_camp in reservation_camps %}
+                                <tr>
+                                    <td>{{ reservation_camp.id }}</td>
+                                    <td>{{ reservation_camp.dateRes ? reservation_camp.dateRes|date('Y-m-d') : '' }}</td>
+
+                                    <td>{{ reservation_camp.camping }}</td>
+
+                                </tr>
+
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+
+{% endblock %}

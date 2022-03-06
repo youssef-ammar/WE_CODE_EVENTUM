@@ -1,0 +1,8 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+
+#    path: / RechercheByCamping
+#    controller: App\Controller\ReservationCamp::ReservationCamp
+

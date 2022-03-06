@@ -1,0 +1,61 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Camping{% endblock %}
+
+{% block body %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 style="color:#FFA500"  class="card-title">Camping</h4>
+
+
+
+    <table class="table">
+        <tbody>
+
+            <tr>
+                <th>Nom</th>
+                <td>{{ camping.nom }}</td>
+            </tr>
+            <tr>
+                <th>Date_debut</th>
+                <td>{{ camping.dateDebut ? camping.dateDebut|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fin</th>
+                <td>{{ camping.dateFin ? camping.dateFin|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td>{{ camping.lieu }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ camping.description }}</td>
+            </tr>
+            <tr>
+                <th>Nb_place</th>
+                <td>{{ camping.nbPlace }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ camping.prix }}</td>
+            </tr>
+            <tr>
+
+                 <img style=" display: block;
+                      margin-left: auto;
+                      margin-right: auto;
+                      width: 50%;"  src="{{ asset( 'uploadcamp/'~camping.image)}}"  />
+            </tr>
+        </tbody>
+    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

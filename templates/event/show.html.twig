@@ -1,0 +1,55 @@
+{% extends 'base-back.html.twig' %}
+
+
+
+{% block title %}event{% endblock %}
+
+{% block body %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="color:#FFA500"  class="card-title">Evènement</h4>
+
+                        <table class="table">
+                            <img style=" display: block;
+                      margin-left: auto;
+                      margin-right: auto;
+                      width: 50%;"  src="{{ asset( 'upload/'~event.image)}}"  />
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ event.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date_debut</th>
+                                <td>{{ event.dateDebut ? event.dateDebut|date('Y-m-d') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date_fin</th>
+                                <td>{{ event.dateFin ? event.dateFin|date('Y-m-d') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Lieu</th>
+                                <td>{{ event.lieu }}</td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>{{ event.description }}</td>
+                            </tr>
+
+
+
+
+
+                            </tbody>
+                        </table>
+                        <a href="{{ path('event_index') }}" type="button" class="btn btn-warning btn-fw">Liste évènements</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
