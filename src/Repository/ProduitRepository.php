@@ -18,6 +18,20 @@ class ProduitRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Produit::class);
     }
+    /**
+     *
+     * Requête QueryBuilder
+     */
+    public function getProdtuiPrix($prixproduit){
+        return $this->createQueryBuilder('c')
+            ->where('c.prix < :prix ')
+            ->setParameter('prix' ,  $prixproduit)
+
+            ->getQuery()
+            ->execute();
+    }
+
+
 
     // /**
     //  * @return Produit[] Returns an array of Produit objects
