@@ -1,0 +1,47 @@
+
+{% extends 'base-back.html.twig' %}
+
+{% block body %}
+
+
+
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+
+
+
+
+<div class="form-group" data-sb-validations="required">
+    {{ form_label(form.numFidelite	, ' numFidelite')  }}
+    {{ form_widget(form.numFidelite	  ,{'attr': {'class': 'form-control form-control-user' , 'placeholder' : ' numFidelite'}} ) }}
+    {{ form_errors(form.numFidelite ) }}
+
+</div>
+
+<div class="form-group">
+    {{ form_label(form.DateAjout, 'DateAjout ')  }}
+
+    {{ form_widget(form.DateAjout , {'attr': {'class': 'form-control form-control-user' , 'placeholder' : 'DateAjout '}} ) }}
+    {{ form_errors(form.DateAjout) }}
+</div>
+
+
+<div class="form-group">
+    {{ form_label(form.DateExpiration, 'DateExpiration')  }}
+
+    {{ form_widget(form.DateExpiration , {'attr': {'class': 'form-control form-control-user' , 'placeholder' : 'DateExpiration'}} ) }}
+    {{ form_errors(form.DateExpiration) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.Utilisateur, 'Utilisateur')  }}
+
+    {{ form_widget(form.Utilisateur , {'attr': {'class': 'form-control form-control-user' , 'placeholder' : 'Utilisateur'}} ) }}
+    {{ form_errors(form.Utilisateur) }}
+</div>
+
+
+
+
+{{ form_end(form) }}
+{% endblock %}

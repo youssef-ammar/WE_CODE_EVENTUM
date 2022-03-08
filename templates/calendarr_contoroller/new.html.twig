@@ -1,0 +1,31 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}New Calendar{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-3">
+    <div class="row min-vh-100">
+        <div class="col-md-8 col-lg-6 col-xl-5 d-flex align-items-center">
+            <div class="w-100 py-5 px-md-5 px-xl-6 position-relative">
+                <div class="mb-4"><img class="img-fluid mb-4" src="img/logo-square.svg" alt="..." style="max-width: 4rem;">
+                    <h2>Sign up</h2>
+                    <p class="text-muted">His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table.</p>
+
+    <h1>Participer</h1>
+
+    {{ include('calendarr_contoroller/_form.html.twig') }}
+
+    <a href="{{ path('calendarr_contoroller_index') }}">back to list</a>
+                    <svg class="svg-icon w-3rem h-3rem">
+                        <use xlink:href="#close-1"> </use>
+                    </svg></a>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-6 col-xl-7 d-none d-md-block">
+                <!-- Image-->
+                <div class="bg-cover h-100 mr-n3"  src="img/logo.img"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

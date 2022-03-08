@@ -1,0 +1,95 @@
+{% extends 'base_front.html.twig' %}
+{% block title %}Profile{% endblock %}
+{% block body %}
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 mr-lg-auto">
+                    <div class="card border-0 shadow mb-6 mb-lg-0">
+                        <div class="card-header bg-gray-100 py-4 border-0 text-center"><a class="d-inline-block" href="#"><img class="d-block avatar avatar-xxl p-2 mb-2" src="{{ asset('img/as.jpg') }}" alt=""></a>
+                            <h5>Asma</h5>
+                            <p class="text-muted text-sm mb-0">Partenaire</p>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="media align-items-center mb-3">
+                                <div class="icon-rounded icon-rounded-sm bg-primary-light mr-2">
+                                    <svg class="svg-icon text-primary svg-icon-md">
+                                        <use xlink:href="#diploma-1"> </use>
+                                    </svg>
+                                </div>
+                                <div class="media-body">
+                                    <p class="mb-0">4 événements</p>
+                                </div>
+                            </div>
+                            <div class="media align-items-center mb-3">
+                                <div class="icon-rounded icon-rounded-sm bg-primary-light mr-2">
+                                    <svg class="svg-icon text-primary svg-icon-md">
+                                        <use xlink:href="#checkmark-1"> </use>
+                                    </svg>
+                                </div>
+                                <div class="media-body">
+                                    <p class="mb-0">Verified</p>
+                                </div>
+                            </div>
+                            <hr>
+
+
+                            <li class="nav-item mt-3 mt-lg-0 ml-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="{{ path('add_part') }}">Ajouter un évènements</a></li>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 pl-lg-5">
+                    <h1 class="hero-heading mb-0">Rando Loisirs Travel</h1>
+                    <div class="text-block">
+                        <p> <span class="badge badge-secondary-light">Agence</span></p>
+                      <p></p>
+                    </div>
+                    <section class="py-6 bg-gray-100">
+                        <div class="container">
+                            <div class="row mb-5">
+                                <div class="col-md-8">
+                                    <p class="subtitle text-secondary">liste des événements</p>
+                                    <h2>Evénements</h2>
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                {% for event in events %}
+                                    <!-- blog item-->
+                                    <div class="col-lg-3   hover-animate">
+                                        <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="" alt="..."/></a>
+                                            <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">{{ event.nom }} </a>
+                                                <h5 class="my-2"><a class="text-dark" href="post.html">{{ event.lieu }}         </a></h5>
+                                                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock mr-2"></i>{{ event.dateFin ? event.dateFin|date('Y-m-d') : '' }}</p>
+                                                <p class="my-2 text-muted text-sm"> </p><a class="btn btn-link pl-0" href="{{ path('event_show_part',{'id': event.id} )}}">Info<i class="fa fa-long-arrow-alt-right ml-2"></i></a>
+                                                <label> <a href="{{ path('event_del_part', {'id': event.id}) }}"><i class="bi bi-trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                            </svg></i>
+                                                    </a> <label  > <a href="{{ path('part_edit', {'id': event.id}) }}" ><i class="bi bi-pencil-square"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                                                </svg></i></a>
+                                                    </label>
+                                                    <label> <a href="{{ path('event_show_part', {'id': event.id}) }}"><i class="bi bi-info-circle">  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                                                </svg></i>
+                                                        </a>
+                                                    </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {{ knp_pagination_render(events) }}
+                    </section>
+
+                </div>
+        </div>
+    </section>
+{% endblock %}

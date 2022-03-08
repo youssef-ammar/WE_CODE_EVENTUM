@@ -3,14 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
  */
-class Utilisateur
+class Utilisateur implements UserInterface
 {
     /**
      * @ORM\Id
@@ -64,27 +66,19 @@ class Utilisateur
      */
     private $genre;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="tel", type="integer", nullable=false)
-     *
-     */
-    private $tel;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $addresse;
+
+
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $role;
+
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity=Calendar::class, mappedBy="utilisateur")
      */
-    private $imageuser;
+    private $calendar;
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="sender", orphanRemoval=true)
      */
@@ -105,7 +99,10 @@ class Utilisateur
         $this->sent = new ArrayCollection();
         $this->received = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->calendar = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -174,17 +171,7 @@ class Utilisateur
         return $this;
     }
 
-    public function getTel(): ?string
-    {
-        return $this->tel;
-    }
 
-    public function setTEL(string $tel): self
-    {
-        $this->tel = $tel;
-
-        return $this;
-    }
 
     public function getAddresse(): ?string
     {
@@ -209,7 +196,6 @@ class Utilisateur
 
         return $this;
     }
-
     public function getMdp(): ?string
     {
         return $this->mdp;
@@ -248,7 +234,108 @@ class Utilisateur
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
+
     /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+
+
+    public function setRoles(array $roles): self
+    {
+        $this->role = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->mdp;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->mdp = $password;
+
+        return $this;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getRoles()
+    {
+        $roles = json_decode($this->role);
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @return Collection<int, Calendar>
+     */
+    public function getCalendar(): Collection
+    {
+        return $this->calendar;
+    }
+
+    public function addCalendar(Calendar $calendar): self
+    {
+        if (!$this->calendar->contains($calendar)) {
+            $this->calendar[] = $calendar;
+            $calendar->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCalendar(Calendar $calendar): self
+    {
+        if ($this->calendar->removeElement($calendar)) {
+            // set the owning side to null (unless already changed)
+            if ($calendar->getUtilisateur() === $this) {
+                $calendar->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+/**
      * @return Collection|Message[]
      */
     public function getSent(): Collection
@@ -338,4 +425,3 @@ class Utilisateur
         return $this;
     }
 }
-

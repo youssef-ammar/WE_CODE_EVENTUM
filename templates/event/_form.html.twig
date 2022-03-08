@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+
+    {{ form_widget(form) }}
+{% if app.request.attributes.get('_route') == 'annonces_edit' %}
+    <h2>Images</h2>
+    {% for image in events.images %}
+        <div>
+            <img src="{{ asset('/upload/' ~ image.nom) }}" alt="Image" width="150">
+            <a href="{{ path('annonces_delete_image', {id: image.id}) }}"  data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+{{ form_end(form) }}

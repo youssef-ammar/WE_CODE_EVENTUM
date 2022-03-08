@@ -1,0 +1,112 @@
+{% extends 'base-front.html.twig' %}
+{% block title %}Hello CalendarController!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
+
+{% endblock %}
+{% block body %}
+
+</header>
+
+                <section class="py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-3 mr-lg-auto">
+                                <div class="card border-0 shadow mb-6 mb-lg-0">
+                                    {% if "IS_AUTHENTICATED_FULLY" %}
+                                        {% set user = app.user %}
+
+                                    {% else %}
+                                        {% set user = "no user connected" %}
+                                    {% endif %}
+                                    {% set nom =  user.nom %}
+                                    <a href={{ path("app_login") }}>log out</a>
+                                    <div class="card-header bg-gray-100 py-4 border-0 text-center"><a class="d-inline-block" href="#"><img class="d-block avatar avatar-xxl p-2 mb-2" src="{{ asset('img/as.jpg') }}" alt=""></a>
+                                        <h5>{{ nom }}</h5>
+                                        <p class="text-muted text-sm mb-0">{{ user.role }}</p>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <div class="media align-items-center mb-3">
+                                            <div class="icon-rounded icon-rounded-sm bg-primary-light mr-2">
+                                                <svg class="svg-icon text-primary svg-icon-md">
+                                                    <use xlink:href="#diploma-1"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="media-body">
+                                                <p class="mb-0">4 événements</p>
+                                            </div>
+                                        </div>
+                                        <div class="media align-items-center mb-3">
+                                            <div class="icon-rounded icon-rounded-sm bg-primary-light mr-2">
+                                                <svg class="svg-icon text-primary svg-icon-md">
+                                                    <use xlink:href="#checkmark-1"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="media-body">
+                                                <p class="mb-0">Verified</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+<!--
+                                        <li class="nav-item mt-3 mt-lg-0 ml-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="{{ path('add_part') }}">Mes événements </a></li>
+-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9 pl-lg-5">
+                                <h1 class="hero-heading mb-0">Calendrier</h1>
+                                <div class="text-block">
+                                    <p> <span class="badge badge-secondary-light">Events</span></p>
+                                    <p></p>
+                                </div>
+    <div id="calendrier">
+    </div>
+
+                            </div>
+                        </div>
+                </section>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js" integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
+
+    <script>
+        window.onload = () => {
+            let calendarElt = document.querySelector("#calendrier")
+            let calendar = new FullCalendar.Calendar(calendarElt, {
+                initialView: 'timeGridWeek',
+                locale: 'fr',
+                timeZone: 'Europe/Paris',
+                headerToolbar: {
+                    start: 'prev,next today',
+                    center: 'title',
+                    end: 'dayGridMonth,timeGridWeek'
+                },
+                events: {{ data|raw }},
+                editable: true,
+                eventResizableFromStart: true
+            })
+            calendar.on('eventChange', (e) => {
+                let url = `/api/${e.event.id}/edit`
+                let donnees = {
+                    "title": e.event.title,
+                    "description": e.event.description,
+                    "start": e.event.start,
+                    "end": e.event.end,
+                    "backgroudcolor": e.event.backgroudcolor,
+                    "borderColor": e.event.borderColor,
+                    "textcolor": e.event.textcolor,
+                    "allday": e.event.allday
+                }
+
+                let xhr = new XMLHttpRequest
+                xhr.open("PUT", url)
+        xhr.send(JSON.stringify(donnees))
+               // xhr.send("json=" + encodeURIComponent(JSON.stringify(donnees)));
+            })
+
+            calendar.render()
+        }
+    </script>
+
+{% endblock %}
