@@ -1,0 +1,17 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Modifier Comment{% endblock %}
+
+{% block body %}
+    <section style="padding-top: 72px;">
+    <h1 >Modifier Comment</h1>
+
+    {{ include('Front/comment/_form.html.twig'
+    ) }}
+
+    <a href="{{ path('comment') }}">Retour à la liste</a>
+
+
+
+    </section>
+{% endblock %}
