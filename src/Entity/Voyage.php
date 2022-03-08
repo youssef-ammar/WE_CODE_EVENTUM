@@ -68,7 +68,7 @@ class Voyage
     private $prix_voy;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reservationvoy::class, mappedBy="voyage")
+     * @ORM\OneToMany(targetEntity=Reservationvoy::class, mappedBy="comment")
      *
      */
     private $resvoya;

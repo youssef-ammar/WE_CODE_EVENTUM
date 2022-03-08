@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\ChatBot\Conversation\OnBoardingConversation;
 use App\ChatBot\Conversation\QuestionConversation;
+
 use App\Entity\Message;
 use App\Entity\Topic;
 use BotMan\BotMan\BotMan;
@@ -19,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ChatController extends AbstractController
+class ChatBController extends AbstractController
 {
     /**
      * @Route("/chat", name="chat_index")
@@ -28,16 +29,8 @@ class ChatController extends AbstractController
     {
         return $this->render('chat/index.html.twig');
     }
-    /**
-     * @Route("/chat/test", name="chat_test")
-     */
-    public function test(): Response
-    {
-          $message=$this->getDoctrine()->getRepository(Message::class)->findAll();
 
 
-        return $this->render('chat/test.html.twig',["messages"=>$message,"title"=>"Test","name"=>"Youssef"]);
-    }
 
     /**
      * @Route("/chat/message", name="chat_message")
@@ -63,7 +56,7 @@ class ChatController extends AbstractController
         $botman->hears(
             'hi',
             function (BotMan $bot) {
-                $bot->reply('Hello, I am a Chatbot in Symfony 5!');
+                $bot->reply('Hello, I am a Chatbot in EVENTUM');
             }
         );
 

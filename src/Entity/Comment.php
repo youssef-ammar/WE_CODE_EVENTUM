@@ -24,6 +24,12 @@ class Comment
      */
     private $content;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $poster;
+
 
 
     public function getId(): ?int
@@ -51,6 +57,18 @@ class Comment
     public function setForum(?Topic $forum): self
     {
         $this->forum = $forum;
+
+        return $this;
+    }
+
+    public function getPoster(): ?Utilisateur
+    {
+        return $this->poster;
+    }
+
+    public function setPoster(?Utilisateur $poster): self
+    {
+        $this->poster = $poster;
 
         return $this;
     }

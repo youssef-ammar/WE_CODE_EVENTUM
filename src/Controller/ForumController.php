@@ -3,9 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Bookmark;
+
 use App\Entity\Comment;
+use App\Entity\Conversation;
+use App\Entity\Message;
 use App\Entity\Topic;
+use App\Entity\Utilisateur;
 use App\Form\CommentType;
+use App\Form\MessageType;
 use App\Form\TopicType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,12 +78,43 @@ class ForumController extends AbstractController
     /**
      * @Route("/dicussion/{lang}", name="discussion")
      */
-    public function discussion(TranslatorInterface $translator, $lang): Response
+    public function discussion(TranslatorInterface $translator, $lang,Request $request): Response
     {
+
         $this->transl($translator, $lang);
-        return $this->render('Front/Forum/discussion.html.twig', [
-            "lang" => $lang
-        ]);
+        $message = new Message();
+
+      /*  $conversation = $this->getDoctrine()->getRepository(Conversation::class)->findConversationByParticipants($id,$id1);
+
+        if (count($conversation)) {
+            throw new \Exception("The conversation already exists");
+        }*/
+        $form = $this->createForm(MessageType::class, $message);
+        $user1 = $this->getDoctrine()->getRepository(Utilisateur::class)->find(1);
+$user2=$this->getDoctrine()->getRepository(Utilisateur::class)->find(2);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()){
+            $message->setSender($user1);
+            $message->setRecipient($user2);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+
+            $this->addFlash("message", "Message envoyé avec succès.");
+            return $this->redirectToRoute('discussion', array("lang" => $lang));
+        }
+
+
+
+        $dataS=$this->getDoctrine()->getRepository(Message::class)->findSend($user1);
+
+        $dataR=$this->getDoctrine()->getRepository(Message::class)->findRecep($user1);
+
+        return $this->render('Front/Forum/discussion.html.twig',
+            array('form' => $form->createView(), "lang" => $lang ,"dataS"=>$dataS
+        ,"dataR"=>$dataR));
     }
 
 
@@ -94,6 +130,9 @@ class ForumController extends AbstractController
         $cmt->handleRequest($request);
         if ($cmt->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
+            //$forum->setPoster($this->getUser());
+
+            $forum->setPoster($this->getDoctrine()->getRepository(Utilisateur::class)->find(1));
             $em->persist($forum);
             $em->flush();
             return $this->redirectToRoute('detailC', array("lang" => $lang, 'id' => $id));
@@ -159,7 +198,24 @@ class ForumController extends AbstractController
 
         return $this->render('Front/Forum/edit_Topic.twig', array('form' => $form->createView(),'data'=> $forums, "lang" => $lang));
     }
+    /**
+     * @Route("/editC/{lang}/{idt}/{idc}", name="editC")
+     */
+    public function editC(Request $request, $idt,$idc, $lang, TranslatorInterface $translator): Response
+    {
+        $this->transl($translator, $lang);
+        $forums = $this->getDoctrine()->getRepository(Comment::class)->find($idc);
+        $form = $this->createForm(TopicType::class, $forums);
 
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute("editC", array("lang" => $lang,"id"=>$idt));
+        }
+
+        return $this->render('Front/Forum/Forum_details.html.twig', array('form' => $form->createView(),'data'=> $forums, "lang" => $lang,"id"=>$idt));
+    }
     /**
      * @Route("/delete/{lang}/{id}", name="delete")
      */
@@ -176,19 +232,20 @@ class ForumController extends AbstractController
 
 
     }
+
     /**
-     * @Route("/deleteC/{lang}/{id}", name="deleteC")
+     * @Route("/deleteC/{lang}/{idt}/{idc}", name="deleteC")
      */
-    public function deleteC($id, $lang, TranslatorInterface $translator): Response
+    public function deleteC($idc,$idt, $lang, TranslatorInterface $translator): Response
     {
         $this->transl($translator, $lang);
-        $result = $this->getDoctrine()->getRepository(Topic::class)->find($id);
+        $result = $this->getDoctrine()->getRepository(Comment::class)->find($idc);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($result);
         $entityManager->flush();
 
-        return $this->redirectToRoute("forum", array("lang" => $lang));
+        return $this->redirectToRoute("detailC", array("lang" => $lang,"idt"=>$idt));
 
 
     }
