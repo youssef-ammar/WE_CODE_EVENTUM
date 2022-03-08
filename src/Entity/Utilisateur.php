@@ -95,10 +95,16 @@ class Utilisateur
      */
     private $received;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="poster")
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->sent = new ArrayCollection();
         $this->received = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -296,6 +302,36 @@ class Utilisateur
             // set the owning side to null (unless already changed)
             if ($received->getRecipient() === $this) {
                 $received->setRecipient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setPoster($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getPoster() === $this) {
+                $comment->setPoster(null);
             }
         }
 

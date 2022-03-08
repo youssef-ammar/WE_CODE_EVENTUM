@@ -6,7 +6,6 @@ use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @ORM\Entity(repositoryClass=MessageRepository::class)
  */
@@ -19,11 +18,7 @@ class Message
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * * @Assert\NotBlank(message="Title is required")
-     */
-    private $title;
+
 
     /**
      * @ORM\Column(type="text")
@@ -36,10 +31,6 @@ class Message
      */
     private $created_at;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $is_read = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="sent")
@@ -62,17 +53,6 @@ class Message
         return $this->id;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
 
     public function getMessage(): ?string
     {
@@ -98,17 +78,6 @@ class Message
         return $this;
     }
 
-    public function getIsRead(): ?bool
-    {
-        return $this->is_read;
-    }
-
-    public function setIsRead(bool $is_read): self
-    {
-        $this->is_read = $is_read;
-
-        return $this;
-    }
 
     public function getSender(): ?Utilisateur
     {

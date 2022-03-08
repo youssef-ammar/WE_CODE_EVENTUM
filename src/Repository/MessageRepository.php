@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Message;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +21,49 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function add(Message $entity, bool $flush = true): void
+    {
+        $this->_em->persist($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
+
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function remove(Message $entity, bool $flush = true): void
+    {
+        $this->_em->remove($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
+    public function findSend($user){
+        return $this->createQueryBuilder('m')
+            ->join('m.sender','u')
+            ->addSelect('m')
+            ->where('m.sender=:user')
+            ->setParameter('user',$user)
+            ->getQuery()->getResult();
+
+
+    }
+    public function findRecep($user){
+        return $this->createQueryBuilder('m')
+            ->join('m.recipient','u')
+            ->addSelect('m')
+            ->where('m.recipient=:user')
+            ->setParameter('user',$user)
+            ->getQuery()->getResult();
+
+
+    }
     // /**
     //  * @return Message[] Returns an array of Message objects
     //  */
